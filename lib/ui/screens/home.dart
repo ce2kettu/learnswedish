@@ -7,6 +7,29 @@ import 'package:learnswedish/models/flashcard.dart';
 import 'package:learnswedish/models/wordlist.dart';
 import 'package:learnswedish/ui/screens/deck_detail.dart';
 
+List<FlashCard> flashCards = [];
+
+Future<String> loadData() async {
+  return await rootBundle.loadString('assets/wordlist.json');
+}
+
+Future<List<Deck>> loadDecks() async {
+  String jsonString = await loadData();
+  final jsonResponse = json.decode(jsonString);
+  WordList wordList = new WordList.fromJson(jsonResponse);
+  List<Deck> decks = [
+    new Deck(
+      id: 1,
+      title: 'Core Vocabulary',
+      description: 'The most commonly used words in Swedish',
+      imageUrl: 'http://flags.fmcdn.net/data/flags/w580/se.png',
+      flashCards: wordList.words,
+    )
+  ];
+
+  return decks;
+}
+
 class HomeScreen extends StatefulWidget {
   @override
   State<StatefulWidget> createState() {
@@ -36,9 +59,9 @@ class HomeScreenState extends State<HomeScreen> {
         ],
       ),
       body: Container(
-          child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
             Divider(),
             Padding(
               padding: const EdgeInsets.only(left: 8.0, top: 8.0, bottom: 8.0),
@@ -50,62 +73,31 @@ class HomeScreenState extends State<HomeScreen> {
                 ),
               ),
             ),
-            availableDecks()
-          ])),
+            FutureBuilder<List<Deck>>(
+              future: loadDecks(),
+              builder: (context, snapshot) {
+                if (snapshot.hasError) print(snapshot.error);
+
+                return snapshot.hasData
+                    ? availableDecks(snapshot.data)
+                    : Center(child: CircularProgressIndicator());
+              },
+            ),
+          ],
+        ),
+      ),
     );
   }
 
-  List<Deck> decks = [
-    new Deck(
-        id: 1,
-        title: 'Core Vocabulary',
-        description: '10 000 most commonly used words in Swedish',
-        imageUrl: 'http://flags.fmcdn.net/data/flags/w580/se.png',
-        flashCards: [
-          new FlashCard(english: 'Test'),
-          new FlashCard(english: 'Test2'),
-          new FlashCard(english: 'Test3')
-        ]),
-    new Deck(
-        id: 1,
-        title: 'Core Vocabulary',
-        description: '10 000 most commonly used words in Swedish',
-        imageUrl: 'http://flags.fmcdn.net/data/flags/w580/se.png',
-        flashCards: [
-          new FlashCard(english: 'Test'),
-          new FlashCard(english: 'Test2'),
-          new FlashCard(english: 'Test3')
-        ]),
-    new Deck(
-        id: 1,
-        title: 'Core Vocabulary',
-        description: '10 000 most commonly used words in Swedish',
-        imageUrl: 'http://flags.fmcdn.net/data/flags/w580/se.png',
-        flashCards: [
-          new FlashCard(english: 'Test'),
-          new FlashCard(english: 'Test2'),
-          new FlashCard(english: 'Test3')
-        ]),
-    new Deck(
-        id: 1,
-        title: 'Core Vocabulary',
-        description: '10 000 most commonly used words in Swedish',
-        imageUrl: 'http://flags.fmcdn.net/data/flags/w580/se.png',
-        flashCards: [
-          new FlashCard(english: 'Test'),
-          new FlashCard(english: 'Test2'),
-          new FlashCard(english: 'Test3')
-        ])
-  ];
-
-  Widget availableDecks() {
+  Widget availableDecks(List<Deck> decks) {
     return new Container(
-      height: 200.0,
+      height: 205.0,
       child: new ListView.builder(
         itemCount: decks.length,
         scrollDirection: Axis.horizontal,
         itemBuilder: (context, i) => new Card(
-              child: new InkResponse(
+              child: new InkWell(
+                radius: 95.0,
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
@@ -132,14 +124,24 @@ class HomeScreenState extends State<HomeScreen> {
                               decks[i].title,
                               style: new TextStyle(fontSize: 18.0),
                               maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
                             ),
                             SizedBox(height: 8.0),
                             Text(
                               decks[i].description,
+                              overflow: TextOverflow.ellipsis,
                               maxLines: 1,
                               style:
                                   TextStyle(fontSize: 14.0, color: Colors.grey),
-                            )
+                            ),
+                            SizedBox(height: 4.0),
+                            Text(
+                              "Words: " +
+                                  (decks[i].flashCards.length + 1).toString(),
+                              maxLines: 1,
+                              style:
+                                  TextStyle(fontSize: 14.0, color: Colors.grey),
+                            ),
                           ],
                         ),
                       ),

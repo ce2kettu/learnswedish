@@ -1,6 +1,8 @@
 class FlashCard {
   String img;
-  String get imageUrl => 'https://d1pra95f92lrn3.cloudfront.net/media/thumb/${this.img}_96square.jpg';
+  String get imageUrl => this.img != null
+      ? 'https://d1pra95f92lrn3.cloudfront.net/media/thumb/${this.img}_96square.jpg'
+      : 'https://cdn.pixabay.com/photo/2017/02/20/18/03/cat-2083492_960_720.jpg';
   String audio;
   String wordClass;
   String english;
@@ -14,7 +16,21 @@ class FlashCard {
   List<Sentences> sentences;
   List<Examples> examples;
 
-  FlashCard({this.img, this.audio, this.wordClass, this.english, this.flashcardId, this.meaning, this.id, this.gender, this.word, this.enAudio, this.phrases, this.sentences, this.examples});
+  
+  FlashCard(
+      {this.img,
+      this.audio,
+      this.wordClass,
+      this.english,
+      this.flashcardId,
+      this.meaning,
+      this.id,
+      this.gender,
+      this.word,
+      this.enAudio,
+      this.phrases,
+      this.sentences,
+      this.examples});
 
   FlashCard.fromJson(Map<String, dynamic> json) {
     img = json['img'];
