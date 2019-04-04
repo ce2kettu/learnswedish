@@ -22,7 +22,7 @@ Future<List<Deck>> loadDecks() async {
       id: 1,
       title: 'Core Vocabulary',
       description: 'The most commonly used words in Swedish',
-      imageUrl: 'http://flags.fmcdn.net/data/flags/w580/se.png',
+      imageUrl: 'https://d9np3dj86nsu2.cloudfront.net/image/112cb693d1d69eca438e6e23b9c59080',
       flashCards: wordList.words,
     )
   ];
@@ -90,21 +90,21 @@ class HomeScreenState extends State<HomeScreen> {
   }
 
   Widget availableDecks(List<Deck> decks) {
-    return new Container(
+    return Container(
       height: 205.0,
-      child: new ListView.builder(
+      child: ListView.builder(
         itemCount: decks.length,
         scrollDirection: Axis.horizontal,
-        itemBuilder: (context, i) => new Card(
-              child: new InkWell(
+        itemBuilder: (context, i) => Card(
+              child: InkWell(
                 radius: 95.0,
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
                     SizedBox(
-                      child: new Hero(
+                      child: Hero(
                           tag: decks[i].id,
-                          child: new Image.network(
+                          child: Image.network(
                             decks[i].imageUrl ??
                                 'https://via.placeholder.com/350x150',
                             height: 120.0,
@@ -122,7 +122,7 @@ class HomeScreenState extends State<HomeScreen> {
                           children: <Widget>[
                             Text(
                               decks[i].title,
-                              style: new TextStyle(fontSize: 18.0),
+                              style: TextStyle(fontSize: 18.0),
                               maxLines: 1,
                               overflow: TextOverflow.ellipsis,
                             ),
