@@ -21,7 +21,7 @@ Future<List<Deck>> loadDecks() async {
     new Deck(
       id: 1,
       title: 'Core Vocabulary',
-      description: 'The most commonly used words in Swedish',
+      description: 'This deck will help you refresh your knowledge of the core words in the Swedish language.',
       imageUrl: 'https://d9np3dj86nsu2.cloudfront.net/image/112cb693d1d69eca438e6e23b9c59080',
       flashCards: wordList.words,
     )
