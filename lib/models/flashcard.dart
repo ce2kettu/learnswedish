@@ -28,9 +28,9 @@ class FlashCard {
       this.gender,
       this.word,
       this.enAudio,
-      this.phrases,
-      this.sentences,
-      this.examples});
+      this.phrases = const [],
+      this.sentences = const [],
+      this.examples = const []});
 
   FlashCard.fromJson(Map<String, dynamic> json) {
     img = json['img'];

@@ -69,11 +69,11 @@ class DeckDetailHeader extends StatelessWidget {
                           children: <Widget>[
                             CircleAvatar(
                               backgroundImage: NetworkImage(
-                                  'https://duolingo-images.s3.amazonaws.com/avatars/206746863/MINMJPvjB_/medium'),
+                                  'https://duolingo-images.s3.amazonaws.com/avatars/381542373/-AQgYDROm1/medium'),
                             ),
                             SizedBox(width: 8.0),
                             Text(
-                              'Jonathon',
+                              'Tahel Alaloof',
                               overflow: TextOverflow.ellipsis,
                               style: TextStyle(
                                 fontSize: 16.0,
