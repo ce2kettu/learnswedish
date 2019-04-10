@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:learnswedish/models/deck.dart';
+import 'package:learnswedish/ui/screens/deck_learn.dart';
 
 class DeckDetailBody extends StatelessWidget {
   final Deck deck;
@@ -59,6 +60,7 @@ class DeckDetailBody extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
                 Container(
+                  height: 45.0,
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(10),
                     gradient: LinearGradient(
@@ -74,14 +76,30 @@ class DeckDetailBody extends StatelessWidget {
                     ),
                   ),
                   margin: EdgeInsets.symmetric(horizontal: 24.0),
-                  child: MaterialButton(
-                    minWidth: double.infinity,
-                    textColor: Colors.white,
-                    child: Text(
-                      "Start lesson",
-                      style: TextStyle(fontWeight: FontWeight.w600),
+                  child: Material(
+                    color: Colors.transparent,
+                    child: InkWell(
+                      borderRadius: BorderRadius.circular(10),
+                      onTap: () {
+                        Navigator.of(context).push(
+                          new MaterialPageRoute(
+                            builder: (context) {
+                              return new DeckLearn(deck);
+                            },
+                          ),
+                        );
+                      },
+                      child: Center(
+                        child: Text(
+                          "Start lesson",
+                          style: TextStyle(
+                            fontWeight: FontWeight.w600,
+                            color: Colors.white,
+                            fontSize: 16.0,
+                          ),
+                        ),
+                      ),
                     ),
-                    onPressed: () {},
                   ),
                 ),
               ],
